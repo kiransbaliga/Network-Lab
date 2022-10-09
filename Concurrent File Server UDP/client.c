@@ -49,5 +49,12 @@ int main(int argc, char const *argv[]) {
 	printf("Server's Time: %s\n", ctime(&current_time));
 
 	return 0;
+	while(1) {
+		recvfrom(sfd, &num, sizeof(num), 0, (struct sockaddr *)&clientaddr, (socklen_t *)&clientaddr);
+		current_time = time(NULL);
+		printf("Client at %s:%d asked for time: %s\n", inet_ntoa(clientaddr.sin_addr), ntohs(clientaddr.sin_port), ctime(&current_time));
+		sendto(sfd, &current_time, sizeof(current_time), 0, (struct sockaddr *)&clientaddr, sizeof(clientaddr));
+	}
+	return 0;
 }
 
