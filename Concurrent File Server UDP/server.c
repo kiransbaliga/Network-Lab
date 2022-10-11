@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#define S_PORT 43454
-#define C_PORT 43455
+#define S_PORT 43455
+#define C_PORT 43466
 #define ERROR -1
 #define IP_STR "127.0.0.1"
 
