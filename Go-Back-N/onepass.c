@@ -22,6 +22,9 @@ void main()
   {
     sa = atoi(opnd);
     strcpy(name, la);
+    
+    
+    
     lc = sa;
   }
   strcpy(s1, "*");
