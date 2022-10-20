@@ -1,3 +1,11 @@
+// LEAKY BUCKET ALGORITHM::
+
+// The leaky bucket algorithm is a method of congestion control
+//where variable number of requests are temporarily stored and organized
+//into a set-rate output of packets in an asynchronous transfer mode.
+//It is used to implement traffic policing and shaping in Ethernet and Cellular data networks.
+
+//Below given is a C language implementation of the same.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,13 +16,17 @@ int main()
 	int outrate,drop=0,bsize,rem=0,nsec;
 	int input[20]={0},i=0,ch,x,flag;
 	
+	// This specifies the bucket size. It is the amount of data which can be hold in the buffer.
 	printf("Enter Bucket(Bytes) Size : ");
 	scanf("%d",&bsize);
+	
+	// This specifies the constant output rate, in which data will be given out. It is usually lower than input rate, inorder to prevent any delays.
 	printf("Enter output rate(Bytes/sec) : ");
 	scanf("%d",&outrate);
 	
 	do
 	{
+		// This specifies each input data. 
 		printf("Enter the size(Bytes) of packet coming at sec %d : ",i+1);	
 		scanf("%d",&input[i]);
 		i++;
@@ -32,6 +44,7 @@ int main()
 		if(input[i]+rem>bsize){
 			flag=input[i];
 			printf("\t%3d",min(rem,outrate));
+			//If the bucket contains more data, after an output.
 			if(rem-outrate>0)
 				rem=rem-outrate;
 			else
@@ -41,6 +54,7 @@ int main()
 		}	
 		printf("\t%3d",min(input[i]+rem,outrate));
 		
+		//If the bucket contains more data, when the new input is added.
 		if((x=input[i]+rem-outrate)>0)
 		{
 			if(x>bsize)
